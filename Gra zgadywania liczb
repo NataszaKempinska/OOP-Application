@@ -1,0 +1,46 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+
+class GuessingGame {
+private:
+    int randomNumber;
+    int guessCount;
+    bool hasWon;
+
+public:
+    GuessingGame() {
+        std::srand(static_cast<unsigned int>(std::time(nullptr))); // Inicjalizacja generatora liczb pseudolosowych
+        randomNumber = std::rand() % 100 + 1; // Losowanie liczby z zakresu 1-100
+        guessCount = 0;
+        hasWon = false;
+    }
+
+    void play() {
+        int guess;
+        std::cout << "Witaj w grze zgadywania liczb!\n";
+        std::cout << "Zgadnij liczbę z zakresu 1-100.\n";
+
+        while (!hasWon) {
+            std::cout << "Twoja próba: ";
+            std::cin >> guess;
+            guessCount++;
+
+            if (guess == randomNumber) {
+                hasWon = true;
+                std::cout << "Gratulacje! Zgadłeś liczbę " << randomNumber << " po " << guessCount << " próbach.\n";
+            } else if (guess < randomNumber) {
+                std::cout << "Za mało! Spróbuj jeszcze raz.\n";
+            } else {
+                std::cout << "Za dużo! Spróbuj jeszcze raz.\n";
+            }
+        }
+    }
+};
+
+int main() {
+    GuessingGame game;
+    game.play();
+
+    return 0;
+}
